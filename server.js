@@ -1,15 +1,20 @@
 const express = require('express');
-
 const app = express();
+
+const server = require('http').Server(app);
+const io = require('socket.io')(server);
 
 const lobbies = new Map();
 
-app.get('/users', (req, res) => {
-  lobbies.set();
+app.get('/lobbies', (req, res) => {
   res.json(lobbies);
 });
 
-app.listen(5555, (err) => {
+io.on('connection', (socket) => {
+  console.log('user socket', socket, ' ', socket.id);
+});
+
+server.listen(5555, (err) => {
   if (err) {
     throw Error(err);
   }
