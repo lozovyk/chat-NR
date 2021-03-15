@@ -2,7 +2,14 @@ const express = require('express');
 const app = express();
 
 const server = require('http').Server(app);
-const io = require('socket.io')(server);
+const io = require('socket.io')(server, {
+  cors: {
+    origin: '*',
+    methods: ['GET', 'POST'],
+    credentials: true,
+    transports: ['websocket'],
+  },
+});
 
 const lobbies = new Map();
 
@@ -11,7 +18,7 @@ app.get('/lobbies', (req, res) => {
 });
 
 io.on('connection', (socket) => {
-  console.log('user socket', socket, ' ', socket.id);
+  console.log('Connected user; Socket:', socket.id);
 });
 
 server.listen(5555, (err) => {
