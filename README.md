@@ -1,3 +1,3 @@
 # Node + React online chat
-##`yarn server`
-##`yarn start`
+`yarn server`
+`yarn start`
