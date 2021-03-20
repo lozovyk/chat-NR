@@ -1,16 +1,24 @@
 import React from 'react';
-import io from 'socket.io-client';
+import reducer from './reducer';
+import AuthBlock from './components/AuthBlock';
+// import connectSocket from './socket';
 
 function App() {
-  const connectSocket = () => {
-    io('http://localhost:5555');
+  const [state, dispatch] = React.useReducer(reducer, {
+    // IS_AUTHORISED: false,
+  });
+
+  const onLogin = () => {
+    dispatch({
+      type: 'IS_AUTHORISED',
+      payload: true,
+    });
   };
 
   return (
-    <div className="App">
-      <h1>Hello chat!</h1>
-      <button onClick={connectSocket}>Connect</button>
-    </div>
+    <section className="chatApp">
+      {!state.isAuth && <AuthBlock onLogin={onLogin} />}
+    </section>
   );
 }
 
